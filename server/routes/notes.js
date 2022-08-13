@@ -3,9 +3,15 @@ const {
   getNotes,
   createNote,
   getSingleNote,
+  deleteNote,
+  updateNote,
 } = require("../controllers/noteController");
+const requireAuth = require("../middleware/requireAuth");
 
 const router = express.Router();
+
+// require auth for all workout routes
+router.use(requireAuth);
 
 // GET all notes
 router.get("/", getNotes);
@@ -17,7 +23,9 @@ router.get("/:id", getSingleNote);
 router.post("/", createNote);
 
 // DELETE a note
+router.post("/:id", deleteNote);
 
 // UPDATE a note
+router.post("/:id", updateNote);
 
 module.exports = router;

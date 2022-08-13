@@ -46,10 +46,37 @@ const createNote = async (req, res) => {
 
 // delete a note
 
+const deleteNote = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "No such document" });
+  }
+
+  const note = await Note.findOneAndDelete({ _id: id });
+
+  if (!note) {
+    return res.status(400).json({ error: "No such document" });
+  }
+
+  res.status(200).json(note);
+};
+
 // update a note
+const updateNote = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "No such document" });
+  }
+
+  const note = await Note.findByIdAndUpdate({ _id: id }, { ...req.body });
+};
 
 module.exports = {
   getNotes,
   createNote,
   getSingleNote,
+  deleteNote,
+  updateNote,
 };
