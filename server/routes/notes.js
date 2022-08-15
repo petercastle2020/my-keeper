@@ -23,9 +23,9 @@ router.get("/:id", getSingleNote);
 router.post("/", createNote);
 
 // DELETE a note
-router.post("/:id", deleteNote);
+router.delete("/:id", deleteNote);
 
 // UPDATE a note
-router.post("/:id", updateNote);
+router.patch("/:id", updateNote);
 
 module.exports = router;
